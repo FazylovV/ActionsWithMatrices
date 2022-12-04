@@ -10,13 +10,21 @@ namespace Matrix
     {
         public int _Width { get; }
         public int _Height { get; }
-        public int[][] _Matrix { get; }
-        
-        public Matrix(int[][] Matrix)
+        private int[,] _Matrix;
+
+        public Matrix(int[,] Matrix)
         {
-            this._Matrix = Matrix;
-            this._Width = Matrix[0].Length;
-            this._Height = Matrix.Length;
+            this._Width = Matrix.GetLength(1);
+            this._Height = Matrix.GetLength(0);
+            this._Matrix = new int[_Height, _Width];
+            for (int i = 0; i < _Height; i++)
+                for (int j = 0; j < _Width; j++)
+                    this._Matrix[i,j] = Matrix[i, j];
+        }
+
+        public int this[int i, int j]
+        {
+            get => _Matrix[i, j];
         }
 
         public static Matrix SumMatrices(Matrix matrix1, Matrix matrix2)
@@ -24,13 +32,10 @@ namespace Matrix
             if (!(matrix1._Width == matrix2._Width && matrix1._Height == matrix2._Height)) 
                 throw new Exception("Matrices must not have different sizes");
 
-            int[][] newMatrix = new int[matrix1._Height][];
+            int[,] newMatrix = new int[matrix1._Height, matrix1._Width];
             for(int i = 0; i < matrix1._Height; i++)
-            {
-                newMatrix[i] = new int[matrix1._Width];
                 for(int j = 0; j < matrix2._Width; j++)
-                    newMatrix[i][j] = matrix1._Matrix[i][j] + matrix2._Matrix[i][j];
-            }
+                    newMatrix[i, j] = matrix1[i, j] + matrix2[i, j];
 
             return new Matrix(newMatrix);
         }
@@ -40,28 +45,20 @@ namespace Matrix
             if (!(matrix1._Width == matrix2._Width && matrix1._Height == matrix2._Height))
                 throw new Exception("Matrices must not have different sizes");
 
-            int[][] newMatrix = new int[matrix1._Height][];
+            int[,] newMatrix = new int[matrix1._Height, matrix1._Width];
             for(int i = 0; i < matrix1._Height; i++)
-            {
-                newMatrix[i] = new int[matrix1._Width];
                 for(int j = 0; j < matrix2._Width; j++)
-                    newMatrix[i][j] = matrix1._Matrix[i][j] - matrix2._Matrix[i][j];
-            }
+                    newMatrix[i, j] = matrix1[i, j] - matrix2[i, j];
 
             return new Matrix(newMatrix);
         }
 
         public static Matrix TransposeMatrix(Matrix matrix)
         {
-            int[][] newMatrix = new int[matrix._Width][];
+            int[,] newMatrix = new int[matrix._Width, matrix._Height];
             for (int i = 0; i < matrix._Height; i++)
-            {
                 for (int j = 0; j < matrix._Width; j++)
-                {
-                    if (i == 0) newMatrix[j] = new int[matrix._Height];
-                    newMatrix[j][i] = matrix._Matrix[i][j];
-                }
-            }
+                    newMatrix[j, i] = matrix[i, j];
 
             return new Matrix(newMatrix);
         }

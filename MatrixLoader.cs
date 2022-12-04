@@ -34,18 +34,22 @@ namespace Matrix
             }
 
             int[][] MatrixArray = MatrixList.ToArray();
-            return new Matrix(MatrixArray);
+            int[,] MatrixArrayDemensionTwo = new int[MatrixArray.Length, MatrixArray[0].Length];
+            for(int i = 0; i < MatrixArray.Length; i++)
+                for(int j = 0; j < MatrixArray[0].Length; j++)
+                    MatrixArrayDemensionTwo[i, j] = MatrixArray[i][j];
+
+            return new Matrix(MatrixArrayDemensionTwo);
         }
 
         public static void SaveMatrix(Matrix matrix, string nameOfFile)
         {
-            int[][] numsInMatrix = matrix._Matrix;
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < numsInMatrix.Length; i++)
+            for (int i = 0; i < matrix._Height; i++)
             {
-                for (int j = 0; j < numsInMatrix[i].Length; j++)
+                for (int j = 0; j < matrix._Width; j++)
                 {
-                    sb.Append($"{matrix._Matrix[i][j]} ");
+                    sb.Append($"{matrix[i, j]} ");
                 }
                 sb.AppendLine();
             }
