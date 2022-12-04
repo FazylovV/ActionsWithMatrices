@@ -8,17 +8,17 @@ namespace Matrix
 {
     public class Matrix
     {
-        public int _Width { get; }
-        public int _Height { get; }
+        public int Width { get; }
+        public int Height { get; }
         private int[,] _Matrix;
 
         public Matrix(int[,] Matrix)
         {
-            this._Width = Matrix.GetLength(1);
-            this._Height = Matrix.GetLength(0);
-            this._Matrix = new int[_Height, _Width];
-            for (int i = 0; i < _Height; i++)
-                for (int j = 0; j < _Width; j++)
+            this.Width = Matrix.GetLength(1);
+            this.Height = Matrix.GetLength(0);
+            this._Matrix = new int[Height, Width];
+            for (int i = 0; i < Height; i++)
+                for (int j = 0; j < Width; j++)
                     this._Matrix[i,j] = Matrix[i, j];
         }
 
@@ -29,12 +29,12 @@ namespace Matrix
 
         public static Matrix SumMatrices(Matrix matrix1, Matrix matrix2)
         {
-            if (!(matrix1._Width == matrix2._Width && matrix1._Height == matrix2._Height)) 
+            if (!(matrix1.Width == matrix2.Width && matrix1.Height == matrix2.Height)) 
                 throw new Exception("Matrices must not have different sizes");
 
-            int[,] newMatrix = new int[matrix1._Height, matrix1._Width];
-            for(int i = 0; i < matrix1._Height; i++)
-                for(int j = 0; j < matrix2._Width; j++)
+            int[,] newMatrix = new int[matrix1.Height, matrix1.Width];
+            for(int i = 0; i < matrix1.Height; i++)
+                for(int j = 0; j < matrix2.Width; j++)
                     newMatrix[i, j] = matrix1[i, j] + matrix2[i, j];
 
             return new Matrix(newMatrix);
@@ -42,12 +42,12 @@ namespace Matrix
 
         public static Matrix DiffMatrices(Matrix matrix1, Matrix matrix2)
         {
-            if (!(matrix1._Width == matrix2._Width && matrix1._Height == matrix2._Height))
+            if (!(matrix1.Width == matrix2.Width && matrix1.Height == matrix2.Height))
                 throw new Exception("Matrices must not have different sizes");
 
-            int[,] newMatrix = new int[matrix1._Height, matrix1._Width];
-            for(int i = 0; i < matrix1._Height; i++)
-                for(int j = 0; j < matrix2._Width; j++)
+            int[,] newMatrix = new int[matrix1.Height, matrix1.Width];
+            for(int i = 0; i < matrix1.Height; i++)
+                for(int j = 0; j < matrix2.Width; j++)
                     newMatrix[i, j] = matrix1[i, j] - matrix2[i, j];
 
             return new Matrix(newMatrix);
@@ -55,9 +55,9 @@ namespace Matrix
 
         public static Matrix TransposeMatrix(Matrix matrix)
         {
-            int[,] newMatrix = new int[matrix._Width, matrix._Height];
-            for (int i = 0; i < matrix._Height; i++)
-                for (int j = 0; j < matrix._Width; j++)
+            int[,] newMatrix = new int[matrix.Width, matrix.Height];
+            for (int i = 0; i < matrix.Height; i++)
+                for (int j = 0; j < matrix.Width; j++)
                     newMatrix[j, i] = matrix[i, j];
 
             return new Matrix(newMatrix);

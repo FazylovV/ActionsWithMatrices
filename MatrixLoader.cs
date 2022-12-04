@@ -45,9 +45,9 @@ namespace Matrix
         public static void SaveMatrix(Matrix matrix, string nameOfFile)
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < matrix._Height; i++)
+            for (int i = 0; i < matrix.Height; i++)
             {
-                for (int j = 0; j < matrix._Width; j++)
+                for (int j = 0; j < matrix.Width; j++)
                 {
                     sb.Append($"{matrix[i, j]} ");
                 }
