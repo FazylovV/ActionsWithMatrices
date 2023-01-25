@@ -22,22 +22,36 @@ namespace Matrix
                 List<int> listOfNumsInString = new List<int>();
                 s.TrimEnd();
                 string[] numsInString = s.Split(" ");
-                if(width != numsInString.Length) 
-                    throw new Exception("Matrices not exist");
-
-                foreach(string number in numsInString)
+                if(width != numsInString.Length)
                 {
-                    if (int.TryParse(number, out int num)) listOfNumsInString.Add(num);
-                    else listOfNumsInString.Add(0);
+                    throw new Exception("Matrices not exist");
+                }
+
+                foreach (string number in numsInString)
+                {
+                    if (int.TryParse(number, out int num))
+                    {
+                        listOfNumsInString.Add(num);
+                    }
+
+                    else
+                    {
+                        listOfNumsInString.Add(0);
+                    }
                 }
                 MatrixList.Add(listOfNumsInString.ToArray());
             }
 
             int[][] MatrixArray = MatrixList.ToArray();
             int[,] MatrixArrayDemensionTwo = new int[MatrixArray.Length, MatrixArray[0].Length];
-            for(int i = 0; i < MatrixArray.Length; i++)
-                for(int j = 0; j < MatrixArray[0].Length; j++)
+
+            for (int i = 0; i < MatrixArray.Length; i++)
+            {
+                for (int j = 0; j < MatrixArray[0].Length; j++)
+                {
                     MatrixArrayDemensionTwo[i, j] = MatrixArray[i][j];
+                }
+            }
 
             return new Matrix(MatrixArrayDemensionTwo);
         }
